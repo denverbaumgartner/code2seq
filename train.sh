@@ -12,6 +12,11 @@ data=${data_dir}/${dataset_name}
 test_data=${data_dir}/${dataset_name}.val.c2s
 model_dir=models/${type}
 
+MODEL_PATH=${model_dir}/model
+SAVE_PATH=${model_dir}/save
+
 mkdir -p ${model_dir}
+mkdir -p ${MODEL_PATH}
+mkdir -p ${SAVE_PATH}
 set -e
-python3 -u code2seq.py --data ${data} --test ${test_data} --save_prefix ${model_dir}/model
+python3 -u code2seq.py --data ${data} --test ${test_data} --model_path ${MODEL_PATH} --save_path ${SAVE_PATH}
