@@ -15,5 +15,5 @@ set -e
 CUDA_VISIBLE_DEVICES=$cuda python -u code2seq.py \
   --data="${data}" \
   --test="${test}" \
-  --save_prefix="${save_prefix}" \
+  --save_path="${save_prefix}" \
   --seed="${seed}"
