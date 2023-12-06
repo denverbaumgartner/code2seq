@@ -83,6 +83,7 @@ class Reader:
         word = row_parts[0]  # (, )
 
         if not self.is_evaluating and self.config.RANDOM_CONTEXTS:
+            #print('we are not evaluating')
             all_contexts = tf.stack(row_parts[1:])
             all_contexts_padded = tf.concat([all_contexts, [self.context_pad]], axis=-1)
             index_of_blank_context = tf.where(tf.equal(all_contexts_padded, self.context_pad))
@@ -93,11 +94,30 @@ class Reader:
             rand_indices = tf.random.shuffle(tf.range(safe_limit))[:self.config.MAX_CONTEXTS]
             contexts = tf.gather(all_contexts, rand_indices)  # (max_contexts,)
         else:
+            #print('we are using the else statement')
             contexts = row_parts[1:(self.config.MAX_CONTEXTS + 1)]  # (max_contexts,)
 
         # contexts: (max_contexts, )
         split_contexts = tf.strings.split(contexts, sep=',')
         sparse_split_contexts = split_contexts.to_sparse()
+        
+        #print('\n----------')
+        #print(f"the amount of contexts are: {split_contexts.shape}")
+
+        # print(f"here is the tensor: {sparse_split_contexts}")
+        #print(f"here is the shape: {sparse_split_contexts.shape}")
+
+        #################
+        # TEMPORARY FIX #
+        #################
+        # desired_shape = (100, 3)
+        # sliced_sparse_contexts = tf.sparse.slice(sparse_split_contexts, [0, 0], [desired_shape[0], desired_shape[1]])
+        # sliced_sparse_contexts = tf.sparse.reshape(sliced_sparse_contexts, desired_shape)
+        # sparse_split_contexts = sliced_sparse_contexts
+        # print(f"here is the shape: {sparse_split_contexts.shape}")
+        #################
+        # TEMPORARY FIX #
+        #################
 
         dense_split_contexts = tf.reshape(
             tf.sparse.to_dense(sp_input=sparse_split_contexts, default_value=Common.PAD),
@@ -238,16 +258,57 @@ if __name__ == '__main__':
 
         test_manually = True
 
-        if test_manually:
-            with open('{}.train.c2s'.format(config.TRAIN_PATH), 'r') as data_file:
-                for test_sample in data_file.readlines():
-                    test_sample = test_sample.strip()
-                    contexts_num = sum(ch.isspace() for ch in test_sample)
-                    space_padding = ' ' * (config.DATA_NUM_CONTEXTS - contexts_num)
-                    test_sample += space_padding
+        #################
+        # TEMPORARY FIX #
+        #################
+        if test_manually: 
+            print('we are evaluating the data manually')
 
-                    reader.process_from_placeholder(test_sample)
-        else:
+            with open('{}.cleaned_train_output_file.txt'.format(config.TRAIN_PATH), 'w') as txt_file:
+                print('we are cleaning the train set')
+                with open('{}.train.c2s'.format(config.TRAIN_PATH), 'r') as data_file:
+                    for test_sample in data_file.readlines():
+                        datum = test_sample
+                        test_sample = test_sample.strip()
+                        contexts_num = sum(ch.isspace() for ch in test_sample)
+                        space_padding = ' ' * (config.DATA_NUM_CONTEXTS - contexts_num)
+                        test_sample += space_padding
+                        try:
+                            reader.process_from_placeholder(test_sample)
+                        except: 
+                            continue
+                        txt_file.write(datum.strip())
+
+            with open('{}.cleaned_test_output_file.txt'.format(config.TRAIN_PATH), 'w') as txt_file:
+                print('we are cleaning the test set')
+                with open('{}.test.c2s'.format(config.TRAIN_PATH), 'r') as data_file:
+                    for test_sample in data_file.readlines():
+                        datum = test_sample
+                        test_sample = test_sample.strip()
+                        contexts_num = sum(ch.isspace() for ch in test_sample)
+                        space_padding = ' ' * (config.DATA_NUM_CONTEXTS - contexts_num)
+                        test_sample += space_padding
+                        try:
+                            reader.process_from_placeholder(test_sample)
+                        except: 
+                            continue
+                        txt_file.write(datum.strip())
+            
+            with open('{}.cleaned_valid_output_file.txt'.format(config.TRAIN_PATH), 'w') as txt_file:
+                print('we are cleaning the validation set')
+                with open('{}.val.c2s'.format(config.TRAIN_PATH), 'r') as data_file:
+                    for test_sample in data_file.readlines():
+                        datum = test_sample
+                        test_sample = test_sample.strip()
+                        contexts_num = sum(ch.isspace() for ch in test_sample)
+                        space_padding = ' ' * (config.DATA_NUM_CONTEXTS - contexts_num)
+                        test_sample += space_padding
+                        try:
+                            reader.process_from_placeholder(test_sample)
+                        except: 
+                            continue
+                        txt_file.write(datum.strip())
+        else: 
             dataset = reader.get_dataset()
 
             try:
@@ -284,3 +345,20 @@ if __name__ == '__main__':
 
             except tf.errors.OutOfRangeError:
                 print('Done training, epoch reached')
+
+        '''
+        if test_manually:
+            print('we are testing the data manually')
+            with open('{}.train.c2s'.format(config.TRAIN_PATH), 'r') as data_file:
+                for test_sample in data_file.readlines():
+                    test_sample = test_sample.strip()
+                    contexts_num = sum(ch.isspace() for ch in test_sample)
+                    space_padding = ' ' * (config.DATA_NUM_CONTEXTS - contexts_num)
+                    test_sample += space_padding
+
+                    reader.process_from_placeholder(test_sample)
+        '''
+        #################
+        # TEMPORARY FIX #
+        #################
+        

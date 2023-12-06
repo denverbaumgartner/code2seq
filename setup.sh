@@ -25,6 +25,8 @@ curl -L -o $AST_EVAL_NAME $AST_EVAL_GIST
 # cd ../../..
 # sudo docker run -it $IMAGE
 
+# sudo docker cp code2seq/ b6ff5d430193:/tmp/
+
 # once inside the docker image
 # DATA_DIR=data/
 # SEED=239
@@ -46,3 +48,6 @@ curl -L -o $AST_EVAL_NAME $AST_EVAL_GIST
 # pip install -r requirements.txt
 
 # bash train_python150k.sh $DATA_DIR $DESC $CUDA $SEED
+
+# DATA_DIR=SQLExtractor/data/data
+# python reader.py -d $DATA_DIR
