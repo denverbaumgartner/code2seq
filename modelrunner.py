@@ -160,6 +160,13 @@ class ModelRunner:
             print('After %d epochs: Precision: %.5f, recall: %.5f, F1: %.5f' % (
                 epochs_trained, precision, recall, f1))
             print('Rouge: ', rouge)
+
+            epoch_run_file = os.path.join(model_dirname, 'epoch_run_file.txt')
+            with open(epoch_run_file, 'w') as epoch_write:
+                epoch_write.write('After %d epochs: Precision: %.5f, recall: %.5f, F1: %.5f\n' % (
+                    epochs_trained, precision, recall, f1))
+                epoch_write.write('Rouge: %s\n' % rouge)
+
             if f1 > best_f1:
                 best_f1 = f1
                 best_f1_precision = precision
@@ -196,7 +203,7 @@ class ModelRunner:
             model_dirname = os.path.dirname(self.config.MODEL_PATH)
         else:
             model_dirname = None
-            print('Model directory is mossing')
+            print('Model directory is missing')
             exit(-1)
 
         ref_file_name = os.path.join(model_dirname, 'ref.txt')

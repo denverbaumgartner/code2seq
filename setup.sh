@@ -1,7 +1,7 @@
 IMAGE=tensorflow/tensorflow:2.1.0-gpu 
-AST_TRAINING_GIST=https://gist.githubusercontent.com/denverbaumgartner/f1a4c4db0056a3a078b01c0c4e3c9de1/raw/14103fa6d031d0f92d05a9675a4863faf69005ce/file.txt
-AST_TEST_GIST=https://gist.githubusercontent.com/denverbaumgartner/9837d66d94dee897c4f8205baad4c7c0/raw/1ccf7f3e0583c2d2fec646743b3090c79506a076/file.txt
-AST_EVAL_GIST=https://gist.githubusercontent.com/denverbaumgartner/fef56cf1af35c25cddfd454e520fedf0/raw/66b79db780b5bc0ea213fdb85b702c8b4a0c79e3/file.txt
+AST_TRAINING_GIST=https://gist.githubusercontent.com/denverbaumgartner/0f7357362edc7f2a737897b23e3a52e2/raw/8c824b8d643665afd4b93da2db1031adaaef1927/file.txt
+AST_TEST_GIST=https://gist.githubusercontent.com/denverbaumgartner/706f31886fc87b2eb8c3d2d11218b85f/raw/a4b9c9edce9609a53984655a9c8b9fc21f439b5c/file.txt
+AST_EVAL_GIST=https://gist.githubusercontent.com/denverbaumgartner/7044017043fd28a16302d19cad61d703/raw/ced3e3bc95b00b87a5381b6ba350e949dea2c6e1/file.txt
 AST_TRAINING_NAME=train_output_file.txt
 AST_TEST_NAME=test_output_file.txt
 AST_EVAL_NAME=valid_output_file.txt
