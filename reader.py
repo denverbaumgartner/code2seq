@@ -277,7 +277,7 @@ if __name__ == '__main__':
                             reader.process_from_placeholder(test_sample)
                         except: 
                             continue
-                        txt_file.write(datum.strip())
+                        txt_file.write(datum.strip() + '\n')
 
             with open('{}.cleaned_test_output_file.txt'.format(config.TRAIN_PATH), 'w') as txt_file:
                 print('we are cleaning the test set')
@@ -292,7 +292,7 @@ if __name__ == '__main__':
                             reader.process_from_placeholder(test_sample)
                         except: 
                             continue
-                        txt_file.write(datum.strip())
+                        txt_file.write(datum.strip() + '\n')
             
             with open('{}.cleaned_valid_output_file.txt'.format(config.TRAIN_PATH), 'w') as txt_file:
                 print('we are cleaning the validation set')
@@ -307,7 +307,7 @@ if __name__ == '__main__':
                             reader.process_from_placeholder(test_sample)
                         except: 
                             continue
-                        txt_file.write(datum.strip())
+                        txt_file.write(datum.strip() + '\n')
         else: 
             dataset = reader.get_dataset()
 

@@ -22,4 +22,6 @@ def read_args():
                         help='starts prediction mode, argument is "cpp" or "java" dependin on language model')
     parser.add_argument('--debug', action='store_true')
     parser.add_argument('--seed', type=int, default=239)
+    parser.add_argument('--encode', type=str, 
+                        help='a preprocessed data file to be encoded')
     return parser.parse_args()

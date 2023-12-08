@@ -5,3 +5,5 @@
 *.xml
 *.pyc
 *.txt
+*.c2s
+models/

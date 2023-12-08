@@ -6,6 +6,13 @@ AST_TRAINING_NAME=train_output_file.txt
 AST_TEST_NAME=test_output_file.txt
 AST_EVAL_NAME=valid_output_file.txt
 
+AST_TESTSET_OG=https://gist.github.com/denverbaumgartner/b220ef2596c02907e705c20a1c2c5e17
+AST_TESTSET_VARIANT=https://gist.github.com/denverbaumgartner/e118ff73ce4fd5dfd83b1a3964428257
+AST_TESTSET_OG_NAME=testset_og.txt
+AST_TESTSET_VARIANT_NAME=testset_variant.txt
+# curl -L -o $AST_TESTSET_OG_NAME $AST_TESTSET_OG 
+# curl -L -o $AST_TESTSET_VARIANT_NAME $AST_TESTSET_VARIANT
+
 # install gh 
 sudo snap install gh
 
@@ -25,7 +32,7 @@ curl -L -o $AST_EVAL_NAME $AST_EVAL_GIST
 # cd ../../..
 # sudo docker run -it $IMAGE
 
-# sudo docker cp code2seq/ b6ff5d430193:/tmp/
+# sudo docker cp code2seq/ a5d8ef8b4807:/tmp/
 
 # once inside the docker image
 # DATA_DIR=data/
@@ -49,5 +56,10 @@ curl -L -o $AST_EVAL_NAME $AST_EVAL_GIST
 
 # bash train_python150k.sh $DATA_DIR $DESC $CUDA $SEED
 
+# python -u code2vec.py --load_path=$DATA_DIR --seed=$SEED
+
 # DATA_DIR=SQLExtractor/data/data
 # python reader.py -d $DATA_DIR
+
+# ENCODE=SQLExtractor/encode/encode.train.c2s
+# python -u code2vec.py --load_path=$LOAD_PATH --encode=$ENCODE --seed=$SEED
