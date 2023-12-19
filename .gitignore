@@ -7,3 +7,5 @@
 *.txt
 *.c2s
 models/
+*.DS_Store
+venv/
